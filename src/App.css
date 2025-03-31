@@ -1,4 +1,15 @@
+.col {
+  height: 450px;
+}
+
+.card {
+  width: 305px;
+}
+
 .card img {
   height: 250px;
   object-fit: cover;
+}
+main {
+  padding-block: 50px;
 }
