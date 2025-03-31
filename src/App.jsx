@@ -2,38 +2,38 @@ import "./App.css";
 import { useEffect, useState } from "react";
 import { Col, Container, Row, Card } from "react-bootstrap";
 function App() {
-  const [product, setProduct] = useState([]);
+  const [products, setProducts] = useState([]);
   useEffect(() => {
-    async function fetchProduct() {
+    async function fetchProducts() {
       const response = await fetch("https://fakestoreapi.com/products");
-      const data = await response.json();
-      setProduct(data);
+      const datas = await response.json();
+      setProducts(datas);
     }
-    fetchProduct();
+    fetchProducts();
   }, []);
   return (
-      <main>
-        <Container>
-          <Row>
-            {product.map((product) => (
-            <Col md={3} span={10} key={product.id}>
-              <Card>
-                <Card.Img src={product.image} alt={product.title} />
+    <main>
+      <Container className="my-4">
+        <Row className="gy-3">
+          {products.map((products) => (
+            <Col md={3} lg={3} key={products.id}>
+              <Card className="h-100">
+                <Card.Img
+                  variant={top}
+                  src={products.image}
+                  alt={products.title}
+                />
                 <Card.Body>
-                  <Card.Title>{product.title}</Card.Title>
-                  <Card.Text>
-                  {product.description}
-                  </Card.Text>
-                  <Card.Text>
-                    <strong>Prix :</strong> {product.price} €
-                  </Card.Text>
+                  <Card.Title>{products.title}</Card.Title>
+                  <Card.Text>{products.description}</Card.Text>
+                  <Card.Text>Prix : {products.price} €</Card.Text>
                 </Card.Body>
               </Card>
-              </Col>
-              ))}
-          </Row>
-        </Container>
-      </main>
+            </Col>
+          ))}
+        </Row>
+      </Container>
+    </main>
   );
 }
 
