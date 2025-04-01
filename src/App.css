@@ -2,3 +2,7 @@
   height: 300px;
   object-fit: contain;
 }
+.description-text {
+  height: 150px;
+  overflow: auto;
+}

@@ -60,6 +60,13 @@ function App() {
     const data = await response.json();
     alert("Le prix du produit avec l'id " + data.id + " a été modifié");
   }
+  async function deleteProduct(id) {
+    const response = await fetch(`https://fakestoreapi.com/products/${id}`, {
+      method: "DELETE", // Indique qu'on supprime une ressource existante
+    });
+    const data = await response.json();
+    alert("Le produit avec l'id " + data.id + " a été supprimé");
+  }
 
   return (
     <main>
@@ -78,7 +85,7 @@ function App() {
                 />
                 <Card.Body>
                   <Card.Title>{products.title}</Card.Title>
-                  <Card.Text>{products.description}</Card.Text>
+                  <Card.Text class="description-text">{products.description}</Card.Text>
                   <Card.Text>Prix : {products.price} €</Card.Text>
                 </Card.Body>
                 <Button
@@ -93,7 +100,14 @@ function App() {
                   className="mb-2 ml-2 mr-2"
                   onClick={() => editPrice(products.id)}
                 >
-                  Modifier le produit complet
+                  Modifier le prix du produit
+                </Button>
+                <Button
+                  variant="outline-danger"
+                  className="mb-2 ml-2 mr-2"
+                  onClick={() => deleteProduct(products.id)}
+                >
+                  Supprimer le produit
                 </Button>
               </Card>
             </Col>
