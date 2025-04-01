@@ -19,7 +19,7 @@ function App() {
         const datas = await response.json();
         setProducts(datas);
       } catch (err) {
-        setError(err.message);
+        setError("Nous avons pas pus trouver votre demande " + err.message);
         console.error(err.message);
       } finally {
         setLoading(false);
@@ -46,7 +46,13 @@ function App() {
           category: "electronics",
         }),
       });
-
+      if (!response.ok) {
+        throw new Error(
+          `Erreur HTTP: ${
+            response.statusText ? response.statusText + " - " : ""
+          }${response.status}`
+        );
+      }
       const data = await response.json();
       alert("Le produit avec l'id " + data.id + " a été créé");
     } catch (err) {
@@ -70,6 +76,13 @@ function App() {
           category: "electronics",
         }),
       });
+      if (!response.ok) {
+        throw new Error(
+          `Erreur HTTP: ${
+            response.statusText ? response.statusText + " - " : ""
+          }${response.status}`
+        );
+      }
       const data = await response.json();
       alert("Le produit avec l'id " + data.id + " a été modifié");
     } catch (err) {
@@ -89,6 +102,13 @@ function App() {
           price: 5,
         }),
       });
+      if (!response.ok) {
+        throw new Error(
+          `Erreur HTTP: ${
+            response.statusText ? response.statusText + " - " : ""
+          }${response.status}`
+        );
+      }
       const data = await response.json();
       alert("Le prix du produit avec l'id " + data.id + " a été modifié");
     } catch (err) {
@@ -101,6 +121,13 @@ function App() {
       const response = await fetch(`https://fakestoreapi.com/products/${id}`, {
         method: "DELETE", // Indique qu'on supprime une ressource existante
       });
+      if (!response.ok) {
+        throw new Error(
+          `Erreur HTTP: ${
+            response.statusText ? response.statusText + " - " : ""
+          }${response.status}`
+        );
+      }
       const data = await response.json();
       alert("Le produit avec l'id " + data.id + " a été supprimé");
     } catch (err) {
