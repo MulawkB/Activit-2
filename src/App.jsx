@@ -12,7 +12,7 @@ function App() {
     fetchProducts();
   }, []);
 
-  async function AddProducts() {
+  async function addProduct() {
     const response = await fetch("https://fakestoreapi.com/products", {
       method: "POST",
       headers: {
@@ -30,10 +30,27 @@ function App() {
 
     alert("Le produit avec l'id " + data.id + " a été créé");
   }
+  async function editProduct(id) {
+    const response = await fetch(`https://fakestoreapi.com/products/${id}`, {
+      method: "PUT",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        title: "Produit mis à jour",
+        price: 49.99,
+        description: "Description mise à jour",
+        image: "https://via.placeholder.com/150",
+        category: "electronics",
+      }),
+    });
+    const data = await response.json();
+    alert("Le produit avec l'id " + data.id + " a été modifié");
+  }
   return (
     <main>
       <Container className="my-4">
-        <Button variant="primary" className="mb-3" onClick={AddProducts}>
+        <Button variant="primary" className="mb-3" onClick={addProduct}>
           Ajouter un produit
         </Button>
         <Row className="gy-3">
@@ -50,6 +67,13 @@ function App() {
                   <Card.Text>{products.description}</Card.Text>
                   <Card.Text>Prix : {products.price} €</Card.Text>
                 </Card.Body>
+                <Button
+                  variant="info"
+                  className="mb-2 ml-2 mr-2"
+                  onClick={() => editProduct(products.id)}
+                >
+                  Modifier le produit complet
+                </Button>
               </Card>
             </Col>
           ))}
